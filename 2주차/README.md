@@ -18,3 +18,10 @@ tiny, tiny.en, base, base.en, small, medium 모델에 대해서 Speach to Text �
 
 
 문장이 정확하게 나뉘지는 않지만 타임라인도 함께 추출된다는 장점이 있음. 정확한 문장 분리는 따로 처리를 한 번 해줘야 할 것 같음.
+
+
+# 기능 명세서
+[`기능 명세서 바로가기`][functional-specification-url]
+
+
+[functional-specification-url]: FUNCTIONAL.md
