@@ -53,3 +53,7 @@
     ```
     
     or 생성형 AI?
+
+# 240903 TUE
+1. 기능 명세서 작성
+https://ciao-m.notion.site/0d5c0cd5bd1a4fcf9ae5fd11c557d766?pvs=4
