@@ -122,3 +122,5 @@
 - [VOCO](https://cse.ewha.ac.kr/cse/academic/graduation-work.do?mode=view&articleNo=688427&article.offset=18&articleLimit=9)
 - [HeyGen의 Video translate](https://jamake.io/ko/insight/131)
     - 번역 + TTS + 딥페이크까지 적용된 서비스
+
+[idea-url]: IDEA.md
