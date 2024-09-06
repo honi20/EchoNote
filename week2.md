@@ -61,3 +61,14 @@ https://ciao-m.notion.site/0d5c0cd5bd1a4fcf9ae5fd11c557d766?pvs=4
 # 240904 WED
 1. ERD 작성
 https://www.erdcloud.com/d/FZZHmagg48QkKvJxn
+
+# 240906 FRI
+1. 아이디어 기획 회의
+    1) 요리 오디오 북 → 기존 서비스에 기능을 추가해서 하자. 차별점이 되는 기능을 넣어서
+        - 커스텀 → 기존 레시피에서 커스텀 설정 (전체적으로?)
+        - 개인화 시킬 수 있는 기능이 있다면 괜찮을 것 같다
+    2) 프로파일링
+
+2. 전문가 리뷰
+    https://docs.google.com/document/d/1vZSvFBoRuBU5m6Ab7LbguMwGOILCQFMe0jSOOb2cNU8/edit
+
