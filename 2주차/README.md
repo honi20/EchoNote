@@ -23,5 +23,8 @@ tiny, tiny.en, base, base.en, small, medium 모델에 대해서 Speach to Text �
 # 기능 명세서
 [`기능 명세서 바로가기`][functional-specification-url]
 
+# 현업 전문가 리뷰
+[`현업 전문가 바로가기`][review-url]
 
 [functional-specification-url]: FUNCTIONAL.md
+[review-url]: REVIEW.md
