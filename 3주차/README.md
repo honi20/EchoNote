@@ -6,14 +6,23 @@
 
 
 # 와이어프레임
-[`와이어프레임 바로가기`][wireframe]
+[`와이어프레임-0909`][wireframe]
 
 
 
 2024.09.09 - 와이어프레임 작성 중. 상의 후 통합 필요.
 
+[`와이어프레임-0910`][wireframe2]
+
+
+2024.09.10 - 와이어프레임 작성 완료.
+
+# 목업
+2024.09.10 - 작업 중
+
 <!-- url -->
 [functional-specification-url]: FUNCTIONAL.md
 [wireframe]: wireframe.pdf
+[wireframe2]: wireframe2.pdf
 
 
