@@ -17,3 +17,8 @@ https://www.notion.so/ciao-m/API-ec570c823a334f43b7ac7c549114db35?pvs=4
 1. 중간발표
 2. 기능 명세서 작성
 https://www.notion.so/ciao-m/04b26de785884761b254f7fadcc3b36a
+
+# 240920 FRI
+1. ERD 수정
+2. API 명세서 작성
+https://www.notion.so/ciao-m/API-ec570c823a334f43b7ac7c549114db35?pvs=4
