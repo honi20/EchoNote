@@ -1,6 +1,6 @@
 # 이현주 브랜치의 README
 ------
-## 240913 오늘 한 일
+## 240920 오늘 한 일
 
-- 중간 발표
-- 기능 명세서 작성함
+- Whisper 모델 성능 비교
+- https://www.notion.so/ciao-m/Whisper-f5598a5d8c2f48d1820f15320989eb06
