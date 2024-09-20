@@ -1,13 +1,16 @@
 import { Component } from "react";
+import { ThemeProvider } from "styled-components";
 import GlobalStyles from "@shared/styles/GlobalStyles";
+import { theme } from "@shared/styles/theme";
 import { getResizeEventListener } from "@services/responsiveFrame/index";
 
 class App extends Component {
   render() {
     return (
       <div id="App">
-        <GlobalStyles />
-        <p>안녕하세요~</p>
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
+        </ThemeProvider>
       </div>
     );
   }
