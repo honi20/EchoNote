@@ -1,0 +1,28 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_DATABASE}?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        globally_quoted_identifiers: true
+        format_sql: true
+        show_sql: true
+    hibernate:
+      ddl-auto: create
+    open-in-view: true
+  jwt:
+    secret: ${JWT_KEY}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "prometheus"
