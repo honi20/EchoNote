@@ -23,7 +23,7 @@ const ToolBar = () => {
       {!isCollapsed && (
         <ToolBarHeader>
           <Title>
-            2023 Shareholders Meeting
+            pdf file name
             <FaStar style={{ marginLeft: "10px", color: "gold" }} />
           </Title>
         </ToolBarHeader>
