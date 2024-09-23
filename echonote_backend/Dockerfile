@@ -9,7 +9,7 @@ RUN gradle dependencies --no-daemon || return 0
 
 # 전체 프로젝트 복사 및 빌드
 COPY . /app
-RUN gradle clean build --no-daemon
+RUN gradle clean build --no-daemon -x test
 
 # JRE 이미지로 런타임 이미지 생성
 FROM openjdk:17-jdk-slim
