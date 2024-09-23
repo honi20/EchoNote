@@ -7,7 +7,7 @@ public class SecurityConstants {
 		"/v3/api-docs/**",
 		"/swagger-resources/**",
 		"/webjars/**",
-		"/",
+		"/**",
 		"/api/user/login/**",
 	};
 }
