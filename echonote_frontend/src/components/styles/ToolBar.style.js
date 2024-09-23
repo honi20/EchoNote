@@ -25,10 +25,9 @@ export const ToolBarHeader = styled.div`
 // 부드러운 애니메이션을 위한 컨테이너
 export const AnimatedToolBarContent = styled.div`
   overflow: hidden;
-  max-height: ${({ isCollapsed }) =>
-    isCollapsed ? "0" : "300px"}; /* 열릴 때 높이 설정 */
-  opacity: ${({ isCollapsed }) =>
-    isCollapsed ? "0" : "1"}; /* 숨길 때 투명도 */
+  max-height: ${({ isOpened }) =>
+    isOpened ? "300px" : "0"}; /* 열릴 때 높이 설정 */
+  opacity: ${({ isOpened }) => (isOpened ? "1" : "0")}; /* 숨길 때 투명도 */
   transition: max-height 0.5s ease, opacity 0.5s ease; /* 부드러운 애니메이션 효과 */
 `;
 

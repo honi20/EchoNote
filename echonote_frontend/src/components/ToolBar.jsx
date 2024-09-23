@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { FaPen, FaTextHeight, FaImage, FaShapes, FaStar } from "react-icons/fa";
 import { BiWindowAlt, BiChevronsDown, BiChevronsUp } from "react-icons/bi";
 import { IoMicSharp } from "react-icons/io5";
+import { useToggle } from "@hooks/useToggle";
 import {
   Divider,
   ToolBarContainer,
@@ -16,15 +16,11 @@ import {
 } from "@components/styles/ToolBar.style";
 
 const ToolBar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false); // 아이콘이 숨겨진 상태 관리
-
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed); // 상태를 토글하여 아이콘을 숨김/보임
-  };
+  const { isOpened, toggle } = useToggle(true); // 훅 사용
 
   return (
     <ToolBarContainer>
-      <AnimatedToolBarContent isCollapsed={isCollapsed}>
+      <AnimatedToolBarContent isOpened={isOpened}>
         <ToolBarHeader>
           <Title>
             pdf file name
@@ -44,11 +40,11 @@ const ToolBar = () => {
         </ToolBarButton>
         <SideBarButton>
           <ToolBarIcon as={BiWindowAlt} />
-          <CollapseButton onClick={toggleCollapse}>
-            {isCollapsed ? (
-              <ToolBarIcon as={BiChevronsDown} />
-            ) : (
+          <CollapseButton onClick={toggle}>
+            {isOpened ? (
               <ToolBarIcon as={BiChevronsUp} />
+            ) : (
+              <ToolBarIcon as={BiChevronsDown} />
             )}
           </CollapseButton>
         </SideBarButton>
