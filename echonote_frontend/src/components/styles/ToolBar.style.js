@@ -1,0 +1,77 @@
+import styled from "styled-components";
+
+// 툴바 전체 컨테이너
+export const ToolBarContainer = styled.div`
+  width: 100%;
+  background-color: white;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+`;
+
+// 상단 제목과 접기 버튼을 담은 헤더 영역
+export const ToolBarHeader = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+export const ToolBarContent = styled.div`
+  display: flex;
+  justify-content: center; /* ToolBarButton을 중앙에 배치 */
+  align-items: center;
+  position: relative; /* SideBarButton 위치 고정을 위한 상대 위치 */
+  margin-top: 10px;
+  width: 100%;
+`;
+
+// 중앙에 위치할 툴바 버튼들
+export const ToolBarButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px; /* 아이콘 사이 간격 */
+`;
+
+// 아이콘 자체에 대한 스타일
+export const ToolBarIcon = styled.div`
+  font-size: 18px;
+  cursor: pointer;
+  margin: 0 5px; /* 좌우 간격 조정 */
+
+  &:hover {
+    color: ${(props) => props.theme.colors.iconHover};
+  }
+
+  &:active {
+    color: ${(props) => props.theme.colors.iconActive};
+  }
+`;
+
+// 오른쪽에 위치하는 Collapse 버튼 (SideBarButton)
+export const SideBarButton = styled.div`
+  position: absolute; /* 오른쪽 끝에 고정 */
+  right: 0; /* 오른쪽 끝으로 밀어냄 */
+  display: flex;
+  align-items: center;
+`;
+
+export const CollapseButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #0070f3;
+`;
+
+// 제목 스타일
+export const Title = styled.h1`
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  font-size: 1.2rem;
+  color: ${(props) => props.theme.colors.textColor};
+  margin: 0; /* 여백이 있을 경우 제거 */
+`;
