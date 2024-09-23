@@ -4,6 +4,8 @@ import GlobalStyles from "@shared/styles/GlobalStyles";
 import { theme } from "@shared/styles/theme";
 import { getResizeEventListener } from "@services/responsiveFrame/index";
 import ToolBar from "@components/ToolBar";
+import PdfBar from "@components/PdfBar";
+import { Layout, MainContent } from "@/Layout.style";
 
 class App extends Component {
   render() {
@@ -12,13 +14,17 @@ class App extends Component {
         <ThemeProvider theme={theme}>
           <GlobalStyles />
           <ToolBar />
-          <main>
-            <p>페이지 내용이 여기에 들어갑니다.</p>
-          </main>
+          <Layout>
+            <PdfBar />
+            <MainContent>
+              <p>페이지 내용이 여기에 들어갑니다.</p>
+            </MainContent>
+          </Layout>
         </ThemeProvider>
       </div>
     );
   }
+
   componentDidMount() {
     const FixRatio = getResizeEventListener(1280, 800);
     window.onresize = FixRatio;
