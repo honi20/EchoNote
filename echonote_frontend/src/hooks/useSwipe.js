@@ -1,26 +1,58 @@
 // hooks/useSwipe.js
 import { useEffect, useRef } from "react";
 
-export const useSwipe = (onSwipeLeft, onSwipeRight, onSwipeUp, onSwipeDown) => {
+export const useSwipe = (
+  isPinching,
+  containerRef,
+  onSwipeLeft,
+  onSwipeRight,
+  onSwipeUp,
+  onSwipeDown
+) => {
   const startX = useRef(0);
   const startY = useRef(0);
-  const endX = useRef(0);
-  const endY = useRef(0);
+  const isSwiping = useRef(false);
 
   useEffect(() => {
     const handleTouchStart = (e) => {
+      if (isPinching.current || e.touches.length > 1) return; // 핀치 줌 중이거나 멀티 터치 시 스와이프 무시
       startX.current = e.touches[0].clientX;
       startY.current = e.touches[0].clientY;
+      isSwiping.current = true;
     };
 
     const handleTouchEnd = (e) => {
-      endX.current = e.changedTouches[0].clientX;
-      endY.current = e.changedTouches[0].clientY;
+      if (!isSwiping.current || isPinching.current) return;
 
-      const diffX = endX.current - startX.current;
-      const diffY = endY.current - startY.current;
+      const container = containerRef.current;
+      if (container) {
+        // 현재 스크롤 위치 확인
+        const scrollTop = container.scrollTop;
+        const scrollHeight = container.scrollHeight;
+        const clientHeight = container.clientHeight;
 
-      // 스와이프가 주로 가로로 일어났는지 세로로 일어났는지 판단
+        const scrollLeft = container.scrollLeft;
+        const scrollWidth = container.scrollWidth;
+        const clientWidth = container.clientWidth;
+
+        // 스크롤이 맨 위나 맨 아래 또는 맨 왼쪽이나 맨 오른쪽이 아니라면 스와이프 동작 무시
+        const isVerticalScrollAllowed =
+          scrollTop > 0 && scrollTop + clientHeight < scrollHeight;
+        const isHorizontalScrollAllowed =
+          scrollLeft > 0 && scrollLeft + clientWidth < scrollWidth;
+
+        if (isVerticalScrollAllowed || isHorizontalScrollAllowed) {
+          isSwiping.current = false;
+          return;
+        }
+      }
+
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+
+      const diffX = endX - startX.current;
+      const diffY = endY - startY.current;
+
       if (Math.abs(diffX) > Math.abs(diffY)) {
         if (diffX > 30) {
           onSwipeRight && onSwipeRight(); // 오른쪽으로 스와이프
@@ -34,14 +66,22 @@ export const useSwipe = (onSwipeLeft, onSwipeRight, onSwipeUp, onSwipeDown) => {
           onSwipeUp && onSwipeUp(); // 위로 스와이프
         }
       }
+      isSwiping.current = false; // 스와이프 동작 완료 후 상태 초기화
     };
 
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    window.addEventListener("touchstart", handleTouchStart, { passive: false });
+    window.addEventListener("touchend", handleTouchEnd, { passive: false });
 
     return () => {
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [onSwipeLeft, onSwipeRight, onSwipeUp, onSwipeDown]);
+  }, [
+    isPinching,
+    containerRef,
+    onSwipeLeft,
+    onSwipeRight,
+    onSwipeUp,
+    onSwipeDown,
+  ]);
 };
