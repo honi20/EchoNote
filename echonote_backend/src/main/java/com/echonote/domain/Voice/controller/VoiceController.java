@@ -2,13 +2,13 @@ package com.echonote.domain.Voice.controller;
 
 import java.util.UUID;
 
+import com.amazonaws.HttpMethod;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.amazonaws.HttpMethod;
 import com.echonote.domain.Voice.Service.VoiceServiceImpl;
 import com.echonote.domain.Voice.dto.S3SaveResponse;
 
