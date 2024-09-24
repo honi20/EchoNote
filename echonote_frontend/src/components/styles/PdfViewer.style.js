@@ -8,7 +8,7 @@ export const PdfPage = styled.div`
   background-color: ${theme.colors.subDiscription};
 `;
 
-export const PdfBackground = styled.div`
+export const PdfContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;

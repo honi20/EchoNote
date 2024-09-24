@@ -113,11 +113,11 @@ const PdfViewer = ({ url }) => {
   }, []);
 
   return (
-    <St.PdfBackground ref={containerRef}>
+    <St.PdfContainer ref={containerRef}>
       <St.PdfPage>
         <canvas ref={canvasRef}></canvas>
       </St.PdfPage>
-    </St.PdfBackground>
+    </St.PdfContainer>
   );
 };
 export default PdfViewer;
