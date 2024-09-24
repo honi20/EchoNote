@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import * as St from "./styles/PdfViewer.style";
 import * as pdfjsLib from "pdfjs-dist";
+import { useSwipe } from "@/hooks/useSwipe";
 
 const PdfViewer = ({ url }) => {
   const canvasRef = useRef();
@@ -9,7 +10,7 @@ const PdfViewer = ({ url }) => {
 
   const [pdfRef, setPdfRef] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [scale, setScale] = useState(1);
+  const [scale, setScale] = useState(0.8); //임시설정
   const renderTaskRef = useRef(null);
 
   const renderPage = useCallback(
@@ -111,6 +112,14 @@ const PdfViewer = ({ url }) => {
       container.removeEventListener("touchend", onTouchEnd);
     };
   }, []);
+
+  //페이지 이동
+  const nextPage = () =>
+    pdfRef && currentPage < pdfRef.numPages && setCurrentPage(currentPage + 1);
+  const prevPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
+
+  // useSwipe 훅 사용 - 스와이프 동작으로 페이지 이동
+  useSwipe(prevPage, nextPage);
 
   return (
     <St.PdfContainer ref={containerRef}>
