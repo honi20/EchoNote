@@ -1,5 +1,5 @@
 # backend/Dockerfile
-FROM openjdk:11-jdk
+FROM openjdk:17-jdk
 
 # Gradle wrapper가 실행될 디렉토리 설정
 WORKDIR /app
