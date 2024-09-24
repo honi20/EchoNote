@@ -9,9 +9,8 @@ export const PdfPage = styled.div`
 
 export const PdfContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 100%;
   overflow: auto;
+  height: 100vh;
   background-color: ${theme.colors.articleDivider};
 `;
 

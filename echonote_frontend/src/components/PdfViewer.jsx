@@ -11,9 +11,10 @@ const PdfViewer = ({ url }) => {
 
   const [pdfRef, setPdfRef] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [scale, setScale] = useState(0.8); //임시설정
+  const [scale, setScale] = useState(1); //초기 스케일 값
   const renderTaskRef = useRef(null);
 
+  //PDF 렌더링
   const renderPage = useCallback(
     (pageNum, pdf = pdfRef) => {
       if (pdf) {
@@ -68,16 +69,19 @@ const PdfViewer = ({ url }) => {
   }, [url]);
 
   // usePinchZoom 훅 사용
-  usePinchZoom(containerRef, setScale);
+  const isPinching = usePinchZoom(containerRef, setScale);
 
   //페이지 이동
-  const nextPage = () =>
+  const nextPage = () => {
     pdfRef && currentPage < pdfRef.numPages && setCurrentPage(currentPage + 1);
-  const prevPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
+  };
+  const prevPage = () => {
+    currentPage > 1 && setCurrentPage(currentPage - 1);
+  };
 
   // useSwipe 훅 사용 - 스와이프 동작으로 페이지 이동
   // onSwipeLeft-prevPage, onSwipeRight-nextPage 연결
-  useSwipe(prevPage, nextPage);
+  useSwipe(isPinching, containerRef, prevPage, nextPage);
 
   return (
     <St.PdfContainer ref={containerRef}>
