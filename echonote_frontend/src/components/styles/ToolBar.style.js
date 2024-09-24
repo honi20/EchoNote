@@ -25,9 +25,10 @@ export const ToolBarHeader = styled.div`
 // 부드러운 애니메이션을 위한 컨테이너
 export const AnimatedToolBarContent = styled.div`
   overflow: hidden;
-  max-height: ${({ isOpened }) =>
-    isOpened ? "300px" : "0"}; /* 열릴 때 높이 설정 */
-  opacity: ${({ isOpened }) => (isOpened ? "1" : "0")}; /* 숨길 때 투명도 */
+  max-height: ${({ isCollapsed }) =>
+    isCollapsed ? "0" : "300px"}; /* 열릴 때 높이 설정 */
+  opacity: ${({ isCollapsed }) =>
+    isCollapsed ? "0" : "1"}; /* 숨길 때 투명도 */
   transition: max-height 0.5s ease, opacity 0.5s ease; /* 부드러운 애니메이션 효과 */
 `;
 
@@ -81,12 +82,24 @@ export const SideBarButton = styled.div`
   align-items: center;
 `;
 
-export const CollapseButton = styled.button`
+export const CollapseIcon = styled.div`
   background-color: transparent;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
-  color: #0070f3;
+  font-size: 18px;
+  margin: 0 5px;
+  color: ${({ isCollapsed, theme }) =>
+    isCollapsed ? theme.colors.iconColor : theme.colors.iconHover};
+`;
+
+export const PdfIcon = styled.div`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  margin: 0 5px;
+  color: ${({ isPdfBarOpened, theme }) =>
+    isPdfBarOpened ? theme.colors.iconHover : theme.colors.iconColor};
 `;
 
 // 제목 스타일
