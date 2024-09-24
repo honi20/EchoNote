@@ -1,23 +1,15 @@
-# gradle 이미지로 빌드만
-FROM gradle:7.6.4-jdk-focal AS build
+# backend/Dockerfile
+FROM openjdk:11-jdk
 
+# Gradle wrapper가 실행될 디렉토리 설정
 WORKDIR /app
 
-# Gradle 설정 파일을 먼저 복사하고 종속성 설치
-COPY build.gradle settings.gradle ./
-RUN gradle dependencies --no-daemon || return 0
-
-# 전체 프로젝트 복사 및 빌드
+# 소스 파일 및 Gradle 관련 파일을 복사합니다.
 COPY . /app
-RUN gradle clean build --no-daemon -x test
 
-# JRE 이미지로 런타임 이미지 생성
-FROM openjdk:17-jdk-slim
+# 프로젝트 빌드 (만약 gradlew 파일이 프로젝트 루트에 없다면, Gradle 설치가 필요할 수 있음)
+RUN ./gradlew build
 
-WORKDIR /app
-
-# 빌드된 JAR 파일 복사
-COPY --from=build /app/build/libs/*.jar /app/echonote.jar
-
+# Spring Boot 애플리케이션을 실행합니다.
 EXPOSE 8080
-ENTRYPOINT [ "java", "-jar", "/app/echonote.jar" ]
+CMD ["java", "-jar", "/app/build/libs/echonote.jar"]
