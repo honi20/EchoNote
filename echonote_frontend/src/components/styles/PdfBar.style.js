@@ -1,26 +1,36 @@
 import styled from "styled-components";
 
 export const SidebarContainer = styled.div`
-  width: ${(props) => (props.isOpened ? "200px" : "0")};
+  width: ${(props) => (props.isOpened ? "135px" : "0")};
   transition: width 0.3s ease;
-  background-color: #f1f1f1;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-y: auto; /* 사이드바 내용이 넘칠 경우 세로 스크롤 생성 */
   overflow-x: hidden;
   white-space: nowrap;
-`;
 
-export const SidebarToggleButton = styled.button`
-  position: absolute;
-  top: 20px;
-  left: ${(props) => (props.isOpened ? "200px" : "0")};
-  transform: translateX(${(props) => (props.isOpened ? "0" : "-50%")});
-  transition: left 0.3s ease, transform 0.3s ease;
-  background-color: #0070f3;
-  border: none;
-  color: white;
-  padding: 10px;
-  cursor: pointer;
+  /* 커스텀 스크롤바 */
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.colors.iconHover};
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: ${(props) => props.theme.colors.iconActive};
+    transition: background-color 0.2s ease; /* hover 시 배경 전환 효과 */
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
 `;
 
 export const ImageContainer = styled.div`
@@ -30,9 +40,32 @@ export const ImageContainer = styled.div`
   gap: 10px;
 `;
 
-export const DraggableImage = styled.img`
+export const DraggableImage = styled.div`
+  position: relative;
   width: 100px;
-  height: auto;
+  height: 150px;
+  border-radius: 7px;
+  border: 2px solid ${(props) => (props.isSelected ? "#0070f3" : "#ccc")};
+  box-shadow: ${(props) =>
+    props.isSelected ? "0 0 10px rgba(0, 0, 0, 0.2)" : "none"};
   cursor: move;
-  border: 1px solid #ccc;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  background-color: transparent;
+  display: flex;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+
+  img {
+    display: block; /* 이미지 블록 요소로 변환 */
+    margin: 0 auto; /* 가로 중앙 정렬 */
+    width: 100%;
+    height: auto;
+  }
+`;
+
+export const PageNumber = styled.p`
+  text-align: center;
+  font-size: 12px;
+  color: ${(props) => (props.isSelected ? "#0070f3" : "#000")};
+  margin-top: 5px;
 `;

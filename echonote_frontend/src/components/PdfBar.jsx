@@ -1,28 +1,26 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useToggle } from "@hooks/useToggle";
+import PropTypes from "prop-types"; // prop-types 가져오기
 import {
   SidebarContainer,
-  SidebarToggleButton,
   ImageContainer,
   DraggableImage,
+  PageNumber,
 } from "@components/styles/PdfBar.style";
 
-const PdfBar = () => {
-  const { isOpened, toggle } = useToggle(true); // 커스텀 훅 사용 (초기값은 열린 상태)
-
+const PdfBar = ({ isOpened }) => {
   const [images, setImages] = useState([
-    { id: 1, src: "https://via.placeholder.com/100x150" },
-    { id: 2, src: "https://via.placeholder.com/100x150" },
-    { id: 3, src: "https://via.placeholder.com/100x150" },
-    { id: 4, src: "https://via.placeholder.com/100x150" },
-    { id: 5, src: "https://via.placeholder.com/100x150" },
-    { id: 6, src: "https://via.placeholder.com/100x150" },
-    { id: 7, src: "https://via.placeholder.com/100x150" },
-    { id: 8, src: "https://via.placeholder.com/100x150" },
-    { id: 9, src: "https://via.placeholder.com/100x150" },
-    { id: 10, src: "https://via.placeholder.com/100x150" },
+    { id: 1, name: "page 1", src: "https://via.placeholder.com/100x150" },
+    { id: 2, name: "page 2", src: "https://via.placeholder.com/100x150" },
+    { id: 3, name: "page 3", src: "https://via.placeholder.com/100x150" },
+    { id: 4, name: "page 4", src: "https://via.placeholder.com/100x150" },
+    { id: 5, name: "page 5", src: "https://via.placeholder.com/100x150" },
+    { id: 6, name: "page 6", src: "https://via.placeholder.com/100x150" },
+    { id: 7, name: "page 7", src: "https://via.placeholder.com/100x150" },
+    { id: 8, name: "page 8", src: "https://via.placeholder.com/100x150" },
+    { id: 9, name: "page 9", src: "https://via.placeholder.com/100x150" },
+    { id: 10, name: "page 10", src: "https://via.placeholder.com/100x150" },
   ]);
 
   const moveImage = (dragIndex, hoverIndex) => {
@@ -44,38 +42,68 @@ const PdfBar = () => {
               id={image.id}
               src={image.src}
               moveImage={moveImage}
+              name={image.name}
             />
           ))}
         </ImageContainer>
       </SidebarContainer>
-      <SidebarToggleButton isOpened={isOpened} onClick={toggle}>
-        {isOpened ? "닫기" : "열기"}
-      </SidebarToggleButton>
     </DndProvider>
   );
 };
 
-const DraggableItem = ({ id, src, index, moveImage }) => {
-  const [, ref] = useDrag({
+const DraggableItem = ({ id, src, index, moveImage, name }) => {
+  const ref = useRef(null);
+
+  const [, drag] = useDrag({
     type: "IMAGE",
-    item: { index },
+    item: { id, index },
   });
 
   const [, drop] = useDrop({
     accept: "IMAGE",
-    hover: (draggedItem) => {
-      if (draggedItem.index !== index) {
-        moveImage(draggedItem.index, index);
-        draggedItem.index = index;
+    hover: (draggedItem, monitor) => {
+      if (!ref.current) {
+        return;
       }
+      const dragIndex = draggedItem.index;
+      const hoverIndex = index;
+
+      // 자신 위로 드래그 중인지 체크 (현재 요소의 중간 지점과 비교)
+      const hoverBoundingRect = ref.current.getBoundingClientRect();
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
+      // 드래그 중인 아이템이 이미 위/아래에 있을 때는 아무런 변화 없음
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      }
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
+      }
+
+      // 위/아래로 드래그한 경우 아이템 이동
+      moveImage(dragIndex, hoverIndex);
+      draggedItem.index = hoverIndex;
     },
   });
 
+  drag(drop(ref));
+
   return (
-    <div ref={(node) => ref(drop(node))}>
-      <DraggableImage src={src} />
+    <div ref={ref}>
+      <DraggableImage>
+        <img src={src} alt={`Page ${index + 1}`} />
+      </DraggableImage>
+      <PageNumber>{name}</PageNumber>
     </div>
   );
+};
+
+// prop-types를 사용하여 prop 유효성 검사 추가
+PdfBar.propTypes = {
+  isOpened: PropTypes.bool.isRequired,
 };
 
 export default PdfBar;
