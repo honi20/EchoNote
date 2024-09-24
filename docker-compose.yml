@@ -14,7 +14,7 @@ services:
 
   echonote-backend:
     container_name: echonote-backend
-    build: ./backend
+    build: ./echonote_backend
     image: echonote-backend
     depends_on:
       - echonote-mysql
