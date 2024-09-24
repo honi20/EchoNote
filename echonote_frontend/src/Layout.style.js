@@ -14,7 +14,7 @@ export const MainContent = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rebeccapurple;
+  background-color: ${(props) => props.theme.colors.backgroundColor};
 `;
 
 // 스타일 설정 (1280x800으로 고정)
