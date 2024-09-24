@@ -82,12 +82,24 @@ export const SideBarButton = styled.div`
   align-items: center;
 `;
 
-export const CollapseButton = styled.button`
+export const CollapseIcon = styled.div`
   background-color: transparent;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
-  color: #0070f3;
+  font-size: 18px;
+  margin: 0 5px;
+  color: ${({ isCollapsed, theme }) =>
+    isCollapsed ? theme.colors.iconColor : theme.colors.iconHover};
+`;
+
+export const PdfIcon = styled.div`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  margin: 0 5px;
+  color: ${({ isPdfBarOpened, theme }) =>
+    isPdfBarOpened ? theme.colors.iconHover : theme.colors.iconColor};
 `;
 
 // 제목 스타일

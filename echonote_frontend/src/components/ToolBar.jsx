@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaPen, FaTextHeight, FaImage, FaShapes, FaStar } from "react-icons/fa";
 import { BiWindowAlt, BiChevronsDown, BiChevronsUp } from "react-icons/bi";
 import { IoMicSharp } from "react-icons/io5";
+import PropTypes from "prop-types";
 import {
   Divider,
   ToolBarContainer,
@@ -9,17 +10,18 @@ import {
   ToolBarContent,
   ToolBarButton,
   Title,
-  CollapseButton,
+  CollapseIcon,
+  PdfIcon,
   ToolBarIcon,
   SideBarButton,
-  AnimatedToolBarContent, // 애니메이션 적용된 컴포넌트 가져오기
+  AnimatedToolBarContent,
 } from "@components/styles/ToolBar.style";
 
-const ToolBar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false); // 아이콘이 숨겨진 상태 관리
+const ToolBar = ({ togglePdfBar, isPdfBarOpened }) => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed); // 상태를 토글하여 아이콘을 숨김/보임
+    setIsCollapsed(!isCollapsed);
   };
 
   return (
@@ -43,18 +45,34 @@ const ToolBar = () => {
           <ToolBarIcon as={FaShapes} />
         </ToolBarButton>
         <SideBarButton>
-          <ToolBarIcon as={BiWindowAlt} />
-          <CollapseButton onClick={toggleCollapse}>
-            {isCollapsed ? (
-              <ToolBarIcon as={BiChevronsDown} />
-            ) : (
-              <ToolBarIcon as={BiChevronsUp} />
-            )}
-          </CollapseButton>
+          <PdfIcon
+            as={BiWindowAlt}
+            onClick={togglePdfBar}
+            isPdfBarOpened={isPdfBarOpened}
+          />
+          {isCollapsed ? (
+            <CollapseIcon
+              as={BiChevronsUp}
+              onClick={toggleCollapse}
+              isCollapsed={isCollapsed}
+            />
+          ) : (
+            <CollapseIcon
+              as={BiChevronsDown}
+              onClick={toggleCollapse}
+              isCollapsed={isCollapsed}
+            />
+          )}
         </SideBarButton>
       </ToolBarContent>
     </ToolBarContainer>
   );
+};
+
+// prop-types를 사용하여 props의 유효성 검사 추가
+ToolBar.propTypes = {
+  togglePdfBar: PropTypes.func.isRequired,
+  isPdfBarOpened: PropTypes.bool.isRequired,
 };
 
 export default ToolBar;
