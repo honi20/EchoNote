@@ -29,4 +29,4 @@ COPY --from=build /app/build/libs/*.jar /app/echonote.jar
 EXPOSE 8080
 
 # 애플리케이션 실행
-ENTRYPOINT ["java", "-jar", "/app/echonote.jar"]
+CMD ["java", "-jar", "/app/echonote.jar"]
