@@ -1,5 +1,5 @@
 # 빌드 단계: Gradle 이미지로 빌드 수행
-FROM gradle:7.6.2-jdk17 AS build
+FROM gradle:8.10.1-jdk17 AS build
 
 # 작업 디렉토리 설정
 WORKDIR /app
