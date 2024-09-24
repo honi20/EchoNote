@@ -5,16 +5,14 @@ export const PdfPage = styled.div`
   display: flex;
   margin: auto;
   z-index: 1;
-  background-color: ${theme.colors.subDiscription};
 `;
 
-export const PdfBackground = styled.div`
+export const PdfContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
   overflow: auto;
-  background-color: ${theme.colors.subDiscription};
+  background-color: ${theme.colors.articleDivider};
 `;
 
 //임시 버튼 컨테이너
