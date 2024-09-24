@@ -1,15 +1,32 @@
-# backend/Dockerfile
-FROM openjdk:17-jdk
+# 빌드 단계: Gradle 이미지로 빌드 수행
+FROM gradle:7.6.4-jdk-focal AS build
 
-# Gradle wrapper가 실행될 디렉토리 설정
+# 작업 디렉토리 설정
 WORKDIR /app
 
-# 소스 파일 및 Gradle 관련 파일을 복사합니다.
-COPY . /app
+# Gradle 설정 파일을 먼저 복사하여 의존성 캐싱
+COPY build.gradle settings.gradle ./
 
-# 프로젝트 빌드 (만약 gradlew 파일이 프로젝트 루트에 없다면, Gradle 설치가 필요할 수 있음)
-RUN ./gradlew build
+# Gradle 의존성 설치 (캐싱 용도)
+RUN gradle dependencies --no-daemon
 
-# Spring Boot 애플리케이션을 실행합니다.
+# 나머지 소스 파일을 복사하여 빌드 수행
+COPY . .
+
+# Gradle을 이용하여 프로젝트 빌드
+RUN ./gradlew clean build --no-daemon
+
+# 실행 단계: JRE를 사용하여 런타임 이미지 생성
+FROM openjdk:17-jdk
+
+# 작업 디렉토리 설정
+WORKDIR /app
+
+# 빌드 단계에서 생성된 JAR 파일을 복사
+COPY --from=build /app/build/libs/*.jar /app/echonote.jar
+
+# 애플리케이션이 사용할 포트 노출
 EXPOSE 8080
-CMD ["java", "-jar", "/app/build/libs/echonote.jar"]
+
+# 애플리케이션 실행
+ENTRYPOINT ["java", "-jar", "/app/echonote.jar"]
