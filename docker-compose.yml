@@ -1,0 +1,38 @@
+version: '3'
+services:
+  echonote-mysql:
+    container_name: echonote-mysql
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=echonote
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - mydata:/var/lib/mysql
+    restart: always
+
+  echonote-backend:
+    container_name: echonote-backend
+    build: ./backend
+    image: echonote-backend
+    depends_on:
+      - echonote-mysql
+    environment:
+      - SPRING_DATASOURCE_URL=${RDS_URL}
+      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+    restart: on-failure
+
+#  echonote-frontend:
+#    container_name: echonote-frontend
+#    build: ./frontend
+#    image: echonote-frontend
+#    depends_on:
+#      - echonote-backend
+#    ports:
+#      - '80:80'
+#    restart: on-failure
+
+volumes:
+  mydata:
