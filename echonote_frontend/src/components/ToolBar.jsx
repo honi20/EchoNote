@@ -1,11 +1,7 @@
 import { useState } from "react";
+import { RiSpeakLine } from "react-icons/ri";
 import { FaPen, FaTextHeight, FaImage, FaShapes, FaStar } from "react-icons/fa";
-import {
-  BiWindowAlt,
-  BiWindow,
-  BiChevronsDown,
-  BiChevronsUp,
-} from "react-icons/bi";
+import { BiWindowAlt, BiChevronsDown, BiChevronsUp } from "react-icons/bi";
 import { IoMicSharp } from "react-icons/io5";
 import PropTypes from "prop-types";
 import {
@@ -62,7 +58,7 @@ const ToolBar = ({
             isPdfBarOpened={isPdfBarOpened}
           />
           <STTIcon
-            as={BiWindow}
+            as={RiSpeakLine}
             onClick={toggleSTTBar}
             isSTTBarOpened={isSTTBarOpened}
           />
