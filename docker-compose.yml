@@ -8,6 +8,8 @@ services:
       - MYSQL_DATABASE=echonote
       - MYSQL_USER=${DB_USERNAME}
       - MYSQL_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "3307:3306"
     volumes:
       - mydata:/var/lib/mysql
     restart: always
@@ -15,7 +17,7 @@ services:
     image: mongo
     container_name: echonote-mongo
     ports:
-      - "27017:27017"
+      - "27018:27017"
     environment:
       MONGO_USERNAME: ${MONGO_USERNAME}
       MONGO_PASSWORD: ${MONGO_PASSWORD}
@@ -36,6 +38,8 @@ services:
     container_name: echonote-backend
     build: ./echonote_backend
     image: echonote-backend
+    ports:
+      - "8081:8080"
     depends_on:
       - echonote-mysql
     environment:
