@@ -4,11 +4,14 @@ import GlobalStyles from "@shared/styles/GlobalStyles";
 import { theme } from "@shared/styles/theme";
 import ToolBar from "@components/ToolBar";
 import PdfBar from "@components/PdfBar";
+import RecordingBar from "@components/RecordingBar";
 import { Layout, MainContent, rootStyle, appStyle } from "@/Layout.style";
+import STTBar from "@components/STTBar";
 
 class App extends Component {
   state = {
     isPdfBarOpened: false, // PdfBar 열림/닫힘 상태 관리
+    isSTTBarOpened: false, // STTBar 열림/닫힘 상태 관리
   };
 
   togglePdfBar = () => {
@@ -17,8 +20,14 @@ class App extends Component {
     }));
   };
 
+  toggleSTTBar = () => {
+    this.setState((prevState) => ({
+      isSTTBarOpened: !prevState.isSTTBarOpened,
+    }));
+  };
+
   render() {
-    const { isPdfBarOpened } = this.state;
+    const { isPdfBarOpened, isSTTBarOpened } = this.state;
 
     return (
       <div style={rootStyle}>
@@ -27,13 +36,17 @@ class App extends Component {
             <GlobalStyles />
             <ToolBar
               togglePdfBar={this.togglePdfBar}
+              toggleSTTBar={this.toggleSTTBar}
               isPdfBarOpened={isPdfBarOpened}
+              isSTTBarOpened={isSTTBarOpened}
             />
             <Layout>
+              <RecordingBar />
               <PdfBar isOpened={isPdfBarOpened} />
               <MainContent>
                 <p>페이지 내용이 여기에 들어갑니다.</p>
               </MainContent>
+              <STTBar isOpened={isSTTBarOpened} />
             </Layout>
           </ThemeProvider>
         </div>
