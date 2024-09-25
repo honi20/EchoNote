@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import { shouldNotForwardPropsWithKeys } from "@shared/utils/shouldForwardProp";
 
-export const SearchContainer = styled.div`
+export const SearchContainer = styled.div.withConfig({
+  shouldForwardProp: shouldNotForwardPropsWithKeys(["isOpen"]),
+})`
   display: flex;
   align-items: center;
   justify-content: ${({ isOpen }) => (isOpen ? "flex-start" : "center")};
