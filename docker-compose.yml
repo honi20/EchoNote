@@ -43,6 +43,7 @@ services:
       - "8081:8080"
     depends_on:
       - echonote-mysql
+      - echonote-mongo
     environment:
       - SPRING_DATASOURCE_URL=${RDS_URL}
       - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
