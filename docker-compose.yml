@@ -19,10 +19,11 @@ services:
     ports:
       - "27018:27017"
     environment:
-      MONGO_USERNAME: ${MONGO_USERNAME}
-      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     volumes:
       - mongodb-data:/data/db
+    restart: always
   echonote-redis:
     container_name: echonote-redis
     image: redis
@@ -46,7 +47,7 @@ services:
       - SPRING_DATASOURCE_URL=${RDS_URL}
       - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
-      - SPRING_MONGODB_URI=${MONGO_URI}
+      - SPRING_MONGODB_URI=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@echonote-mongo:27017/${MONGO_DATABASE}
     restart: on-failure
 
 #  echonote-frontend:
