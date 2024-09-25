@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { FaPen, FaTextHeight, FaImage, FaShapes, FaStar } from "react-icons/fa";
-import { BiWindowAlt, BiChevronsDown, BiChevronsUp } from "react-icons/bi";
+import {
+  BiWindowAlt,
+  BiWindow,
+  BiChevronsDown,
+  BiChevronsUp,
+} from "react-icons/bi";
 import { IoMicSharp } from "react-icons/io5";
 import PropTypes from "prop-types";
 import {
@@ -15,9 +20,15 @@ import {
   ToolBarIcon,
   SideBarButton,
   AnimatedToolBarContent,
+  STTIcon,
 } from "@components/styles/ToolBar.style";
 
-const ToolBar = ({ togglePdfBar, isPdfBarOpened }) => {
+const ToolBar = ({
+  togglePdfBar,
+  toggleSTTBar,
+  isPdfBarOpened,
+  isSTTBarOpened,
+}) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleCollapse = () => {
@@ -26,7 +37,7 @@ const ToolBar = ({ togglePdfBar, isPdfBarOpened }) => {
 
   return (
     <ToolBarContainer>
-      <AnimatedToolBarContent isCollapsed={isCollapsed}>
+      <AnimatedToolBarContent collapsed={isCollapsed}>
         <ToolBarHeader>
           <Title>
             pdf file name
@@ -50,6 +61,11 @@ const ToolBar = ({ togglePdfBar, isPdfBarOpened }) => {
             onClick={togglePdfBar}
             isPdfBarOpened={isPdfBarOpened}
           />
+          <STTIcon
+            as={BiWindow}
+            onClick={toggleSTTBar}
+            isSTTBarOpened={isSTTBarOpened}
+          />
           {isCollapsed ? (
             <CollapseIcon
               as={BiChevronsUp}
@@ -72,7 +88,9 @@ const ToolBar = ({ togglePdfBar, isPdfBarOpened }) => {
 // prop-types를 사용하여 props의 유효성 검사 추가
 ToolBar.propTypes = {
   togglePdfBar: PropTypes.func.isRequired,
+  toggleSTTBar: PropTypes.func.isRequired,
   isPdfBarOpened: PropTypes.bool.isRequired,
+  isSTTBarOpened: PropTypes.bool.isRequired,
 };
 
 export default ToolBar;
