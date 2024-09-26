@@ -42,7 +42,7 @@ public class MemoController {
 	}
 
 	@PutMapping
-	@Operation(summary = "메모 수정 및 삭제", description = "메모 업데이트, timeStamp는 Nullable. 기존에 있는 memo_id는 업데이트, 새로운 memo_id는 새롭게 추가된다.")
+	@Operation(summary = "메모 수정", description = "메모 업데이트, timeStamp는 Nullable. 기존에 있는 memo_id는 업데이트, 새로운 memo_id는 새롭게 추가된다.")
 	public ResponseEntity<Memo> updateMemo(@RequestBody Memo memo) {
 		memoService.updateMemo(memo);
 
