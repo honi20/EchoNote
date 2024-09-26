@@ -4,13 +4,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.echonote.domain.Memo.entity.Memo;
 import com.echonote.domain.Memo.service.MemoService;
@@ -18,6 +12,8 @@ import com.echonote.domain.Memo.service.MemoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/memo")
@@ -49,4 +45,14 @@ public class MemoController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	@DeleteMapping
+	@Operation(summary = "메모 삭제", description = "하나 이상의 메모를 삭제할 때 사용되는 API")
+	public ResponseEntity<Void> deleteMemo(
+			@RequestHeader("X-Note-Id") long id,
+			@RequestHeader("X-Target-Memo-Ids") List<Long> memoId) {
+
+		memoService.deleteMemo(id, memoId);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 }
