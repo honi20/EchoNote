@@ -39,21 +39,17 @@ public class MemoServiceImpl implements MemoService {
             // 업데이트 실행
             try {
                 UpdateResult result = mongoTemplate.updateFirst(query, update, Memo.class);
-                if (result.getMatchedCount() == 0) { // 새로운 메모 id를 삽입할 시
-//                    System.out.println("해당 메모 항목을 찾을 수 없습니다: " + memo.getId());
 
+                if (result.getMatchedCount() == 0) { // 새로운 메모 id를 삽입할 시
                     // 기존 메모 목록에 새로운 메모 추가
                     Query insertQuery = new Query(Criteria.where("_id").is(id));
                     Update insertUpdate = new Update().push("memo", memo); // 메모 배열에 추가
                     mongoTemplate.updateFirst(insertQuery, insertUpdate, Memo.class);
-//                    System.out.println("새로운 메모를 추가하였습니다: " + memo.getId());
 
                 }
             } catch (DataIntegrityViolationException e) {
                 System.err.println("데이터 무결성 위반: " + e.getMessage());
-                // 추가적인 에러 로깅을 여기서 할 수 있습니다.
             }
-
         }
     }
 
