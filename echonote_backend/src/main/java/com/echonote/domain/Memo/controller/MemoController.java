@@ -1,5 +1,7 @@
 package com.echonote.domain.Memo.controller;
 
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,23 +30,22 @@ public class MemoController {
 	@GetMapping
 	@Operation(summary = "MongoDB에 메모 불러옴", description = "Id와 매핑 된 Memo 불러오기")
 	public ResponseEntity<Memo> getMemo(@RequestParam long id) {
-		// Memo list = memoService.findById(id);
-		return new ResponseEntity<>(HttpStatus.OK);
+		Memo list = memoService.findById(id);
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
 	@PostMapping
 	@Operation(summary = "MongoDB에 메모 저장함", description = "Id와 매핑 된 Memo 불러오기")
 	public ResponseEntity<Memo> insertMemo(@RequestBody Memo memo) {
-		System.out.println(memo.toString());
 		memoService.insertMemo(memo);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@PutMapping
-	@Operation(summary = "메모 수정 및 삭제", description = "PDF와 매핑 된 모든 DB는 위와 같은 형식으로")
+	@Operation(summary = "메모 수정 및 삭제", description = "메모 업데이트, timeStamp는 Nullable. memo_id의 경우 기존 DB에 저장된 memo_id는 업데이트, 새로운 memo_id는 새롭게 추가된다.")
 	public ResponseEntity<Memo> updateMemo(@RequestBody Memo memo) {
 		memoService.updateMemo(memo);
-		System.out.println(memo.toString());
+		// System.out.println(memo.toString());
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
