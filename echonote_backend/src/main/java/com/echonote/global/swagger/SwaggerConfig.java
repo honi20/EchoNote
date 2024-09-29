@@ -18,7 +18,10 @@ public class SwaggerConfig {
 	public OpenAPI openAPI() {
 		return new OpenAPI()
 			.components(new Components())
-			.info(apiInfo());
+			.info(apiInfo())
+			.servers(Arrays.asList(
+				new Server().url("https://REMOVED")
+			));
 	}
 
 	private Info apiInfo() {
