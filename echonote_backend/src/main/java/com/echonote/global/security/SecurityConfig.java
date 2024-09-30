@@ -29,7 +29,7 @@ public class SecurityConfig {
 
 					CorsConfiguration configuration = new CorsConfiguration();
 
-					configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:3000", "https://REMOVED"));
+					configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:3000", "https://REMOVED/api"));
 					configuration.setAllowedMethods(Collections.singletonList("*"));
 					configuration.setAllowCredentials(true);
 					configuration.setAllowedHeaders(Collections.singletonList("*"));

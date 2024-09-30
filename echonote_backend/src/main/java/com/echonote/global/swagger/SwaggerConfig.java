@@ -22,7 +22,7 @@ public class SwaggerConfig {
 			.components(new Components())
 			.info(apiInfo())
 			.servers(Arrays.asList(
-				new Server().url("https://REMOVED")
+				new Server().url("https://REMOVED/api")
 			));
 	}
 
